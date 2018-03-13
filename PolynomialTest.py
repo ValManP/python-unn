@@ -88,8 +88,8 @@ class PolynomialTest(unittest.TestCase):
         p = p1 * c
 
         # Assert
-        expected = (6, 3)
-        self.assertEqual(expected, p.coefs)
+        expected = Polynomial(3, 6)
+        self.assertEqual(expected, p)
 
     def test_equals(self):
         # Arrange
