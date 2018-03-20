@@ -64,7 +64,7 @@ class PolynomialTest(unittest.TestCase):
         p = p1 + c
 
         # Assert
-        expected = Polynomial(4, 5)
+        expected = Polynomial(1, 5)
         self.assertEqual(expected, p)
 
     def test_mul(self):
