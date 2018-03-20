@@ -20,7 +20,7 @@ class Polynomial:
                 else:
                     res.append(self.coeffs[i] + other.coeffs[i])
         else:
-            res = self.coeffs
+            res = list(self.coeffs)
             res[0] += other
 
         res = res[::-1]
