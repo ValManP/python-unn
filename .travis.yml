@@ -5,7 +5,7 @@ language: python
   install:
     - pip install codecov
   script:
-    - python -m unittest TestPolynomial
-    - coverage run TestPolynomial.py
+    - python -m unittest PolynomialTest
+    - coverage run PolynomialTest.py
   after_success:
     - codecov
