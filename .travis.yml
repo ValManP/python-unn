@@ -2,13 +2,5 @@
   python:
     - "2.7"
     - "3.5"
-  install:
-    - pip install codecov
   script:
     - python -m unittest PolynomialTest
-    - coverage run PolynomialTest.py
-  after_success:
-    - codecov
-  email:
-  on_success: change
-  on_failure: always
