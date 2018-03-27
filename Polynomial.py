@@ -1,5 +1,4 @@
-class Polynomial:
-
+class Polynomial(object):
     # input: a_n, .. , a_1, a_0 or other polynomial or list of coeffs
     def __init__(self, *args):
         if len(args) == 1 and isinstance(args[0], Polynomial):
