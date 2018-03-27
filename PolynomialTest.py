@@ -182,3 +182,6 @@ class PolynomialTest(unittest.TestCase):
         # Assert
         expected = Polynomial(0)
         self.assertEqual(expected, result)
+    
+    if __name__ == "__main__":
+        unittest.main()
