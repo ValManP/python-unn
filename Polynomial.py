@@ -1,9 +1,11 @@
 class Polynomial:
 
-    # input: a_n, .. , a_1, a_0 or other polynomial
+    # input: a_n, .. , a_1, a_0 or other polynomial or list of coeffs
     def __init__(self, *args):
         if len(args) == 1 and isinstance(args[0], Polynomial):
             self.coeffs = args[0].coeffs[:]
+        elif isinstance(args[0], list):
+            self.coeffs = args[0][::-1]
         else:
             self.coeffs = args[::-1]
         self.trim()
@@ -25,6 +27,12 @@ class Polynomial:
 
         res = res[::-1]
         return Polynomial(*res)
+
+    def __radd__(self, other):
+        return self + other
+
+    def __rmul__(self, other):
+        return self * other
 
     def __sub__(self, other):
         return self.__add__(other * -1)
@@ -56,24 +64,26 @@ class Polynomial:
         for self_pow, self_coeff in enumerate(self.coeffs):
             if self_coeff:
                 if self_pow == 0:
-                    self_pow = ''
+                    str_value = ''
                 elif self_pow == 1:
-                    self_pow = 'x'
+                    str_value = 'x'
                 else:
-                    self_pow = 'x^' + str(self_pow)
+                    str_value = 'x^' + str(self_pow)
 
                 if self_coeff == 1:
                     self_coeff = ''
                 elif self_coeff < 0:
-                    self_coeff = '- ' + str(self_coeff * -1)
+                    self_coeff = '-' + str(self_coeff * -1)
+                elif self_pow == (len(self.coeffs) - 1):
+                    self_coeff = str(self_coeff)
                 else:
-                    self_coeff = '+ ' + str(self_coeff)
+                    self_coeff = '+' + str(self_coeff)
 
-                res.append(str(self_coeff) + self_pow)
+                res.append(str(self_coeff) + str_value)
 
         if res:
             res.reverse()
-            return ' '.join(res)
+            return ''.join(res)
         else:
             return '0'
 

@@ -1,5 +1,11 @@
-  language: python
+language: python
   python:
-    - "3.6"
+    - "2.7"
+    - "3.5"
+  install:
+    - pip install codecov
   script:
-    - python -m unittest PolynomialTest
+    - python -m unittest TestPolynomial
+    - coverage run TestPolynomial.py
+  after_success:
+    - codecov
