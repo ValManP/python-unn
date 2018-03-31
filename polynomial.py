@@ -85,8 +85,10 @@ class Polynomial(object):
                 else:
                     str_value = 'x^' + str(self_pow)
 
-                if self_coeff == 1:
+                if self_coeff == 1 and self_pow != 0:
                     self_coeff = ''
+                elif self_coeff == -1 and self_pow != 0:
+                    self_coeff = '-'
                 elif self_coeff < 0:
                     self_coeff = '-' + str(self_coeff * -1)
                 elif self_pow == (len(self.coeffs) - 1):

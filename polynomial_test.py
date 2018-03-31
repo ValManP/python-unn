@@ -146,13 +146,13 @@ class PolynomialTest(unittest.TestCase):
 
     def test_zero_degree_str(self):
         # Arrange
-        p = Polynomial([-4])
+        p = Polynomial([-4, 1])
 
         # Act
         p_str = str(p)
 
         # Assert
-        expected = '-4'
+        expected = '-4x+1'
         self.assertEqual(expected, p_str)
 
     def test_radd(self):
@@ -190,6 +190,138 @@ class PolynomialTest(unittest.TestCase):
         # Assert
         expected = Polynomial(0)
         self.assertEqual(expected, result)
+
+    def test_create_with_incorrect_args(self):
+        # Arrange & Act & Assert
+        self.assertRaises(TypeError, Polynomial, [1, "fff", Polynomial()])
+
+    def test_add_incorrect_value(self):
+        # Arrange
+        p = Polynomial([1, 2, 3])
+
+        # Act & Assert
+        self.assertRaises(TypeError, p.__add__, "fff")
+
+    def test_sub_incorrect_value(self):
+        # Arrange
+        p = Polynomial([1, 2, 3])
+
+        # Act & Assert
+        self.assertRaises(TypeError, p.__sub__, "fff")
+
+    def test_mul_incorrect_value(self):
+        # Arrange
+        p = Polynomial([1, 2, 3])
+
+        # Act & Assert
+        self.assertRaises(TypeError, p.__mul__, "fff")
+
+    def test_eq_with_number(self):
+        # Arrange
+        p = Polynomial([3])
+        c = 3
+
+        # Act & Assert
+        self.assertEqual(c, p)
+
+    def test_eq_with_incorrect(self):
+        # Arrange
+        p = Polynomial([3])
+        s = "fff"
+
+        # Act & Assert
+        self.assertRaises(TypeError, p.__eq__, s)
+
+    def test_str_without_coeff(self):
+        # Arrange
+        p = Polynomial([1, 0])
+
+        # Act
+        p_str = str(p)
+
+        # Assert
+        expected = 'x'
+        self.assertEqual(expected, p_str)
+
+    def test_str_with_zero_polynomial(self):
+        # Arrange
+        p = Polynomial()
+
+        # Act
+        p_str = str(p)
+
+        # Assert
+        expected = '0'
+        self.assertEqual(expected, p_str)
+
+    def test_add_zero_polynomial(self):
+        # Arrange
+        p1 = Polynomial([1, 2, 3])
+        p2 = Polynomial()
+
+        # Act
+        result = p1 + p2
+
+        # Assert
+        expected = p1
+        self.assertEqual(expected, result)
+
+    def test_mul_zero_polynomial(self):
+        # Arrange
+        p1 = Polynomial([1, 2, 3])
+        p2 = Polynomial()
+
+        # Act
+        result = p1 * p2
+
+        # Assert
+        expected = p2
+        self.assertEqual(expected, result)
+
+    def test_mul_zero_const(self):
+        # Arrange
+        p = Polynomial([1, 2, 3])
+        c = 0
+
+        # Act
+        result = c * p
+
+        # Assert
+        expected = Polynomial()
+        self.assertEqual(expected, result)
+
+    def test_str_with_neg_one_polynomial(self):
+        # Arrange
+        p = Polynomial([2, -1, 3])
+
+        # Act
+        p_str = str(p)
+
+        # Assert
+        expected = '2x^2-x+3'
+        self.assertEqual(expected, p_str)
+
+    def test_str_with_one(self):
+        # Arrange
+        p = Polynomial([1])
+
+        # Act
+        p_str = str(p)
+
+        # Assert
+        expected = '1'
+        self.assertEqual(expected, p_str)
+
+    def test_str_with_neg_one(self):
+        # Arrange
+        p = Polynomial([-1])
+
+        # Act
+        p_str = str(p)
+
+        # Assert
+        expected = '-1'
+        self.assertEqual(expected, p_str)
 
 
 if __name__ == '__main__':
