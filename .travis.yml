@@ -9,3 +9,6 @@
     - coverage run polynomial_test.py
   after_success:
     - codecov
+  email:
+  on_success: change
+  on_failure: always
