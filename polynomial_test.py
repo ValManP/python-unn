@@ -22,6 +22,14 @@ class PolynomialTest(unittest.TestCase):
         # Assert
         self.assertIsNotNone(p1)
 
+    def test_create_with_empty_arg(self):
+        # Arrange
+        p = Polynomial()
+
+        # Act & Assert
+        expected = Polynomial(0)
+        self.assertEqual(expected, p)
+
     def test_create_from_list_of_coeffs(self):
         # Arrange
         p = Polynomial([1, 2, 3])

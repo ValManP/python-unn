@@ -3,10 +3,17 @@ class Polynomial(object):
     def __init__(self, *args):
         if len(args) == 1 and isinstance(args[0], Polynomial):
             self.coeffs = args[0].coeffs[:]
+        elif len(args) == 0:
+            self.coeffs = [0]
         elif isinstance(args[0], list):
             self.coeffs = args[0][::-1]
         else:
             self.coeffs = args[::-1]
+
+        for i in self.coeffs:
+            if not isinstance(i, (int, float)):
+                raise TypeError("Only int or float is expected")
+
         self.trim()
 
     def __add__(self, other):
@@ -21,6 +28,8 @@ class Polynomial(object):
                 else:
                     res.append(self.coeffs[i] + other.coeffs[i])
         else:
+            if not isinstance(other, (int, float)):
+                raise TypeError("Only int or float is expected")
             res = list(self.coeffs)
             res[0] += other
 
@@ -46,16 +55,23 @@ class Polynomial(object):
                 for other_pow, other_coeff in enumerate(o):
                     res[self_pow + other_pow] += self_coeff * other_coeff
         else:
+            if not isinstance(other, (int, float)):
+                raise TypeError("Only int or float is expected")
             res = [t * other for t in list(self.coeffs)]
 
         res = res[::-1]
         return Polynomial(*res)
 
     def __eq__(self, other):
-        return self.coeffs == other.coeffs
+        if isinstance(other, Polynomial):
+            return self.coeffs == other.coeffs
+        elif isinstance(other, (int, float)):
+            return self == Polynomial(other)
+        else:
+            raise TypeError("Polynomial or int or float is expected")
 
     def __ne__(self, other):
-        return self.coeffs != other.coeffs
+        return not (self == other)
 
     def __str__(self):
         res = []
