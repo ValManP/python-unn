@@ -202,6 +202,13 @@ class PolynomialTest(unittest.TestCase):
         # Act & Assert
         self.assertRaises(TypeError, p.__add__, "fff")
 
+    def test_radd_incorrect_value(self):
+        # Arrange
+        p = Polynomial([1, 2, 3])
+
+        # Act & Assert
+        self.assertRaises(TypeError, p.__radd__, "fff")
+
     def test_sub_incorrect_value(self):
         # Arrange
         p = Polynomial([1, 2, 3])
@@ -321,6 +328,17 @@ class PolynomialTest(unittest.TestCase):
 
         # Assert
         expected = '-1'
+        self.assertEqual(expected, p_str)
+
+    def test_str_with_first_zero(self):
+        # Arrange
+        p = Polynomial([0, -1, 0])
+
+        # Act
+        p_str = str(p)
+
+        # Assert
+        expected = '-x'
         self.assertEqual(expected, p_str)
 
 
