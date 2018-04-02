@@ -5,7 +5,7 @@ class Polynomial(object):
             self.coeffs = args[0].coeffs[:]
         elif len(args) == 0:
             self.coeffs = [0]
-        elif isinstance(args[0], list):
+        elif isinstance(args[0], (list, tuple)):
             self.coeffs = args[0][::-1]
         else:
             self.coeffs = args[::-1]
@@ -85,7 +85,9 @@ class Polynomial(object):
                 else:
                     str_value = 'x^' + str(self_pow)
 
-                if self_coeff == 1 and self_pow != 0:
+                if self_coeff == 1 and self_pow == 1 and len(self.coeffs) > 2:
+                    self_coeff = '+'
+                elif self_coeff == 1 and self_pow != 0:
                     self_coeff = ''
                 elif self_coeff == -1 and self_pow != 0:
                     self_coeff = '-'

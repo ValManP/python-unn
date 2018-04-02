@@ -12,6 +12,13 @@ class PolynomialTest(unittest.TestCase):
         # Act & Assert
         self.assertIsNotNone(p)
 
+    def test_create_with_tuple(self):
+        # Arrange
+        p = Polynomial((1, 2, 3))
+
+        # Act & Assert
+        self.assertIsNotNone(p)
+
     def test_create_with_copy_constr(self):
         # Arrange
         p = Polynomial([1, 2, 3])
@@ -339,6 +346,17 @@ class PolynomialTest(unittest.TestCase):
 
         # Assert
         expected = '-x'
+        self.assertEqual(expected, p_str)
+
+    def test_str_with_one_polynomial(self):
+        # Arrange
+        p = Polynomial([2, 1, 3])
+
+        # Act
+        p_str = str(p)
+
+        # Assert
+        expected = '2x^2+x+3'
         self.assertEqual(expected, p_str)
 
 
