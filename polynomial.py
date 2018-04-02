@@ -1,3 +1,6 @@
+import collections
+
+
 class Polynomial(object):
     # input: a_n, .. , a_1, a_0 or other polynomial or list of coeffs
     def __init__(self, *args):
@@ -5,7 +8,7 @@ class Polynomial(object):
             self.coeffs = args[0].coeffs[:]
         elif len(args) == 0:
             self.coeffs = [0]
-        elif isinstance(args[0], (list, tuple)):
+        elif isinstance(args[0], collections.Iterable):
             self.coeffs = args[0][::-1]
         else:
             self.coeffs = args[::-1]
