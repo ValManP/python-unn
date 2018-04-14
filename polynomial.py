@@ -5,13 +5,13 @@ class Polynomial(object):
     # input: a_n, .. , a_1, a_0 or other polynomial or list of coeffs
     def __init__(self, *args):
         if len(args) == 1 and isinstance(args[0], Polynomial):
-            self.coeffs = args[0].coeffs[:]
+            self.coeffs = list(args[0].coeffs[:])
         elif len(args) == 0:
             self.coeffs = [0]
         elif isinstance(args[0], collections.Iterable):
-            self.coeffs = args[0][::-1]
+            self.coeffs = list(args[0][::-1])
         else:
-            self.coeffs = args[::-1]
+            raise TypeError("Only iterable or other polynomial are expected")
 
         for i in self.coeffs:
             if not isinstance(i, (int, float)):
@@ -37,7 +37,8 @@ class Polynomial(object):
             res[0] += other
 
         res = res[::-1]
-        return Polynomial(*res)
+
+        return Polynomial(list(res))
 
     def __radd__(self, other):
         return self + other
@@ -63,13 +64,16 @@ class Polynomial(object):
             res = [t * other for t in list(self.coeffs)]
 
         res = res[::-1]
-        return Polynomial(*res)
+        return Polynomial(list(res))
 
     def __eq__(self, other):
         if isinstance(other, Polynomial):
             return self.coeffs == other.coeffs
         elif isinstance(other, (int, float)):
-            return self == Polynomial(other)
+            if len(self.coeffs) == 1:
+                return self.coeffs[0] == other
+            else:
+                return False
         else:
             raise TypeError("Polynomial or int or float is expected")
 
@@ -109,13 +113,20 @@ class Polynomial(object):
         else:
             return '0'
 
+    def __repr__(self):
+        return self.__str__()
+
     def trim(self):
         coeffs = list(self.coeffs)
+
+        if len(coeffs) == 1:
+            return
+
         if coeffs:
             max_not_empty = len(coeffs) - 1
             if coeffs[max_not_empty] == 0:
                 max_not_empty -= 1
-                while max_not_empty >= 0 and coeffs[max_not_empty] == 0:
+                while max_not_empty > 0 and coeffs[max_not_empty] == 0:
                     max_not_empty -= 1
                 del coeffs[max_not_empty + 1:]
-        self.coeffs = tuple(coeffs)
+        self.coeffs = list(coeffs)

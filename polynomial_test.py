@@ -34,7 +34,7 @@ class PolynomialTest(unittest.TestCase):
         p = Polynomial()
 
         # Act & Assert
-        expected = Polynomial(0)
+        expected = Polynomial([0])
         self.assertEqual(expected, p)
 
     def test_create_from_list_of_coeffs(self):
@@ -62,76 +62,76 @@ class PolynomialTest(unittest.TestCase):
         p = p1 + p2 + p3
 
         # Assert
-        expected = Polynomial(3, 5, 8)
+        expected = Polynomial([3, 5, 8])
         self.assertEqual(expected, p)
 
     def test_sub(self):
         # Arrange
-        p1 = Polynomial(1, 2)
-        p2 = Polynomial(3, 4, 5)
+        p1 = Polynomial([1, 2])
+        p2 = Polynomial([3, 4, 5])
 
         # Act
         p = p1 - p2
 
         # Assert
-        expected = Polynomial(-3, -3, -3)
+        expected = Polynomial([-3, -3, -3])
         self.assertEqual(expected, p)
 
     def test_add_const(self):
         # Arrange
-        p1 = Polynomial(1, 2)
+        p1 = Polynomial([1, 2])
         c = 3
 
         # Act
         p = p1 + c
 
         # Assert
-        expected = Polynomial(1, 5)
+        expected = Polynomial([1, 5])
         self.assertEqual(expected, p)
 
     def test_mul(self):
         # Arrange
-        p1 = Polynomial(1, 2)
-        p2 = Polynomial(1, 2, 3)
+        p1 = Polynomial([1, 2])
+        p2 = Polynomial([1, 2, 3])
 
         # Act
         p = p1 * p2
 
         # Assert
-        expected = Polynomial(1, 4, 7, 6)
+        expected = Polynomial([1, 4, 7, 6])
         self.assertEqual(expected, p)
 
     def test_mul_const(self):
         # Arrange
-        p1 = Polynomial(1, 2)
+        p1 = Polynomial([1, 2])
         c = 3
 
         # Act
         p = p1 * c
 
         # Assert
-        expected = Polynomial(3, 6)
+        expected = Polynomial([3, 6])
         self.assertEqual(expected, p)
 
     def test_equals(self):
         # Arrange
-        p1 = Polynomial(1, 2)
-        p2 = Polynomial(1, 2)
+        p1 = Polynomial([1, 2])
+        p2 = Polynomial([1, 2])
 
         # Act & Assert
         self.assertTrue(p1 == p2)
 
     def test_not_equals(self):
         # Arrange
-        p1 = Polynomial(1, 2)
-        p2 = Polynomial(3, 2, 1)
+        p1 = Polynomial([1, 2])
+        p2 = Polynomial([3, 2, 1])
 
         # Act & Assert
         self.assertTrue(p1 != p2)
 
     def test_str(self):
         # Arrange
-        p = Polynomial(2, -2, 3, 0, -4)
+        p = Polynomial([2, -2, 3, 0, -4])
 
         # Act
         p_str = str(p)
@@ -165,7 +165,7 @@ class PolynomialTest(unittest.TestCase):
     def test_radd(self):
         # Arrange
         c = 2
-        p = Polynomial(1, -2, 3)
+        p = Polynomial([1, -2, 3])
 
         # Act
         result = c + p
@@ -177,7 +177,7 @@ class PolynomialTest(unittest.TestCase):
     def test_rmul(self):
         # Arrange
         c = 2
-        p = Polynomial(1, -2, 3)
+        p = Polynomial([1, -2, 3])
 
         # Act
         result = c * p
@@ -195,7 +195,7 @@ class PolynomialTest(unittest.TestCase):
         result = p1 + p2
 
         # Assert
-        expected = Polynomial(0)
+        expected = Polynomial([0])
         self.assertEqual(expected, result)
 
     def test_create_with_incorrect_args(self):
@@ -358,6 +358,29 @@ class PolynomialTest(unittest.TestCase):
         # Assert
         expected = '2x^2+x+3'
         self.assertEqual(expected, p_str)
+
+    def test_repr(self):
+        # Arrange
+        p = Polynomial([2, 1, 3])
+
+        # Act
+        p_str = repr(p)
+
+        # Assert
+        expected = '2x^2+x+3'
+        self.assertEqual(expected, p_str)
+
+    def test_sum_with_num(self):
+        # Arrange & Act
+        p = 5 + Polynomial([0])
+
+        # Assert
+        expected = Polynomial([5])
+        self.assertEqual(expected, p)
+
+    def test_create_with_zero(self):
+        # Arrange & Act & Assert
+        self.assertRaises(TypeError, Polynomial, 0)
 
 
 if __name__ == '__main__':
